@@ -30,7 +30,11 @@ export default function App() {
 
   return (
     <SafeAreaView style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <StatusBar style="light" />
+      <StatusBar 
+        barStyle="default" 
+        backgroundColor="transparent" 
+        translucent={true}
+      />
       <WebView
         geolocationEnabled={true}
         source={{
