@@ -1,37 +1,45 @@
 import React, { useState, useEffect } from 'react';
-import { SafeAreaView } from 'react-native';
-// import * as Location from 'expo-location';
+import { SafeAreaView, Text, Dimensions, StatusBar } from 'react-native';
 
+import * as Location from 'expo-location';
 import { WebView } from 'react-native-webview';
 
 
 export default function App() {
-  // const [hasPermission, setHasPermission] = useState(null);
+  const windowWidth = Dimensions.get('window').width;
+  const windowHeight = Dimensions.get('window').height;
 
-  // useEffect(() => {
-  //   requestLocationPermission();
-  // }, []);
+  const [hasPermission, setHasPermission] = useState(null);
 
-  // const requestLocationPermission = async () => {
-  //   try {
-  //     const { status } = await Location.requestForegroundPermissionsAsync();
-  //     if (status === 'granted') {
-  //       setHasPermission('granted');
-  //     } else {
-  //       setHasPermission('denied');
-  //     }
-  //   } catch (error) {
-  //     console.log('Error requesting location permission:', error);
-  //   }
-  // };
+  useEffect(() => {
+    requestLocationPermission();
+  }, []);
+
+  const requestLocationPermission = async () => {
+    try {
+      const { status } = await Location.requestForegroundPermissionsAsync();
+      if (status === 'granted') {
+        setHasPermission('granted');
+      } else {
+        setHasPermission('denied');
+      }
+    } catch (error) {
+      console.log('Error requesting location permission:', error);
+    }
+  };
 
   return (
     <SafeAreaView style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <StatusBar style="light" />
       <WebView
-        source={{
-          uri: 'https://example.com'
-        }}
         geolocationEnabled={true}
+        source={{
+          uri: 'https://onde-tem-posto.vercel.app'
+        }}
+        style={{
+          width: windowWidth,
+          height: windowHeight
+        }}
       />
     </SafeAreaView>
   );
